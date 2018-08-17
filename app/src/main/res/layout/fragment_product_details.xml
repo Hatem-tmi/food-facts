@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="product"
+            type="com.toumi.foodfacts.data.model.Product" />
+
+        <variable
+            name="viewModel"
+            type="com.toumi.foodfacts.module.details.DetailsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/empty_description"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
+                android:visibility="@{product != null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                tools:visibility="gone" />
+
+
+            <!--android:visibility="@{product != null ? View.VISIBLE : View.GONE}"-->
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="230dp"
+                android:layout_height="154dp"
+                android:onClick="@{() -> viewModel.showPhotoPreview(product.imageUrl)}"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{product.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@{product.name}"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                tools:text="Product Name" />
+
+            <TextView
+                android:id="@+id/productCreateDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                app:date="@{product.creationDate}"
+                app:formatter="@{`MM/dd/yyyy`}"
+                app:layout_constraintEnd_toEndOf="@+id/productName"
+                app:layout_constraintTop_toBottomOf="@+id/productName"
+                tools:text="XX/XX/XXXX" />
+
+            <TextView
+                android:id="@+id/productCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:text="@{@string/barcode_format(product.code)}"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/productCreateDate"
+                app:layout_constraintStart_toStartOf="@+id/productName"
+                app:layout_constraintTop_toBottomOf="@+id/productName"
+                tools:text="Code: 3329770057258" />
+
+            <TextView
+                android:id="@+id/productCommonName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:text="@{product.genericName}"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:visibility="@{product.genericName != null &amp;&amp; product.genericName.length > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/productName"
+                app:layout_constraintStart_toStartOf="@+id/productName"
+                app:layout_constraintTop_toBottomOf="@+id/productCreateDate"
+                tools:text="Common name -- short descrition..."
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/productBrands"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:visibility="@{product.brands != null &amp;&amp; product.brands.length > 0 ? View.VISIBLE : View.GONE}"
+                app:fromHtml="@{@string/brands_format(product.brands)}"
+                app:layout_constraintEnd_toEndOf="@+id/productName"
+                app:layout_constraintStart_toStartOf="@+id/productName"
+                app:layout_constraintTop_toBottomOf="@+id/productCommonName"
+                tools:text="Brands: ..."
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/productCategories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:visibility="@{product.categories != null &amp;&amp; product.categories.length > 0 ? View.VISIBLE : View.GONE}"
+                app:fromHtml="@{@string/categories_format(product.categories)}"
+                app:layout_constraintEnd_toEndOf="@+id/productName"
+                app:layout_constraintStart_toStartOf="@+id/productName"
+                app:layout_constraintTop_toBottomOf="@+id/productBrands"
+                tools:text="Categories: ..."
+                tools:visibility="visible" />
+
+            <android.support.constraint.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="productCategories,productBrands,productCommonName,productCreateDate,imageView" />
+
+            <TextView
+                android:id="@+id/ingredientsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical|start"
+                android:text="@string/ingredients_label"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+            <ImageView
+                android:id="@+id/ingredientsImageView"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:onClick="@{() -> viewModel.showPhotoPreview(product.ingredientsImageUrl)}"
+                android:scaleType="fitCenter"
+                app:imageUrl="@{product.ingredientsImageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsLabel" />
+
+            <TextView
+                android:id="@+id/ingredientsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:visibility="@{product.ingredients != null &amp;&amp; product.ingredients.length > 0 ? View.VISIBLE : View.GONE}"
+                app:fromHtml="@{product.ingredients}"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ingredientsImageView"
+                tools:text="Ingredients list ..."
+                tools:visibility="visible" />
+
+            <android.support.constraint.Barrier
+                android:id="@+id/barrier2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="ingredientsImageView,ingredientsText" />
+
+            <TextView
+                android:id="@+id/nutrimentsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical|start"
+                android:text="@string/nutriments_label"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier2" />
+
+            <ImageView
+                android:id="@+id/nutrimentsImageView"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:onClick="@{() -> viewModel.showPhotoPreview(product.nutriments.imageUrl)}"
+                android:scaleType="fitCenter"
+                app:imageUrl="@{product.nutriments.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/nutrimentsLabel" />
+
+            <TextView
+                android:id="@+id/nutrimentsGrade"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:fromHtml="@{@string/nutriments_grade_format(product.nutriments.grade)}"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nutrimentsImageView"
+                tools:text="Grade: B" />
+
+            <TextView
+                android:id="@+id/nutrimentsEnergy100gKj"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:fromHtml="@{@string/nutriments_Energy100gKj_format(product.nutriments.energy100gKj)}"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nutrimentsGrade"
+                tools:text="Energy / 100g (Kj): 385" />
+
+            <TextView
+                android:id="@+id/nutrimentsEnergy100gKcal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|start"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:fromHtml="@{@string/nutriments_Energy100gKcal_format(product.nutriments.energy100gKcal)}"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nutrimentsEnergy100gKj"
+                tools:text="Energy / 100g (Kcal): 92" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"
+                app:layout_constraintTop_toTopOf="@+id/barrier" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</layout>

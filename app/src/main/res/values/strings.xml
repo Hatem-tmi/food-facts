@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Food Facts</string>
+
+    <string name="scan_barcode_action">SCAN BARCODE</string>
+    <string name="request_barcode_action">INSERT BARCODE</string>
+    <string name="empty_list">EMPTY LIST</string>
+    <string name="empty_description">NO PRODUCT IS SELECTED.\n Scan or Insert a barcode to continue...</string>
+
+    <string name="ingredients_label">Ingredients</string>
+    <string name="nutriments_label">Nutrition Facts</string>
+
+    <string name="barcode_format">Code: %s</string>
+    <string name="brands_format"><![CDATA[<b>Brands:</b> %s]]></string>
+    <string name="categories_format"><![CDATA[<b>Categories:</b> %s]]></string>
+    <string name="nutriments_grade_format"><![CDATA[<b>Grade:</b> %s]]></string>
+    <string name="nutriments_Energy100gKj_format"><![CDATA[<b>Energy / 100g (Kj):</b> %s]]></string>
+    <string name="nutriments_Energy100gKcal_format"><![CDATA[<b>Energy / 100g (Kcal):</b> %s]]></string>
+
+    <string name="request_barcode">Please provide the product barcode</string>
+</resources>

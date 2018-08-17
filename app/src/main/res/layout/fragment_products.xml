@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.toumi.foodfacts.module.list.ProductsViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/listMessageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/translucentBackground"
+            android:gravity="center"
+            android:text="@string/empty_list"
+            tools:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/translucentBackground" />
+
+    </FrameLayout>
+
+</layout>
